@@ -10,8 +10,8 @@ var datesectionnode =  document.getElementsByClassName("date-section");
 setInterval(() => {
 	
     var now = new Date();
-
-   	datesectionnode[0].innerText = days[now.getDay()] + ", " + now.getDate() + " " + months[now.getMonth()] + " " + now.getFullYear() + " " + ((now.getHours()%12 == 0)?12:now.getHours()%12) +":" + now.getMinutes() + ":" + now.getSeconds();
+    var hours = now.getHours()
+   	datesectionnode[0].innerText = days[now.getDay()]+", "+now.getDate()+" "+months[now.getMonth()]+" "+now.getFullYear()+" "+((hours%12==0)?12:hours%12)+":"+now.getMinutes()+":"+('0'+now.getSeconds()).slice(-2)+' '+((hours >= 12) ? 'pm' : 'am');
  	
 }, 1000);
 
