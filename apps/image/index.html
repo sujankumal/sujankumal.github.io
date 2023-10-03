@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<!--
+  /*
+   * JavaScript Load Image Demo
+   * https://github.com/blueimp/JavaScript-Load-Image
+   *
+   * Copyright 2011, Sebastian Tschan
+   * https://blueimp.net
+   *
+   * Licensed under the MIT license:
+   * https://opensource.org/licenses/MIT
+   */
+-->
+<html lang="en">
+
+<head>
+  <!--[if IE]>
+      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <![endif]-->
+  <meta charset="utf-8" />
+  <title>Image</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="This app load images provided as File or Blob objects or via URL. 
+      It returns an optionally scaled, cropped or rotated HTML img or canvas element. 
+      It also provides methods to parse image metadata to extract IPTC and 
+      Exif tags as well as embedded thumbnail images, 
+      to overwrite the Exif Orientation value and to restore the complete image header after resizing." />
+  <meta name="keywords" content="Sujan Kumal, Application, 
+      Image Rotate, Video Rotate, Manipulate,html canvas, Blob, scaled, cropped, rotated, element,image metadata, IPTC,
+      Exif,Image Orientation">
+  
+  <meta property="og:title" content="Er. Sujan Kumal" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://sujankumal.com.np/" />
+  <meta property="og:image" content="https://sujankumal.com.np/images/profile.jpg" />
+
+  <meta property="og:image:width" content="400" />
+  <meta property="og:image:height" content="300" />
+  <meta property="og:description" content="Rotate, Scale, Crop Image" />
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@sujan_03_">
+  <meta name="twitter:creator" content="@sujan_03_">
+  <meta name="twitter:title" content="Er. Sujan Kumal">
+  <meta name="twitter:description" content="Rotate, Scale, Crop Image">
+  <meta name="twitter:image" content="https://sujankumal.com.np/images/profile.jpg">
+
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-WTKZF9J5KK"></script>
+  <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+
+      gtag('config', 'G-WTKZF9J5KK');
+  </script>
+
+  <link rel="icon" href="../../ghost/site/content/uploads/2020/07/cropped-20200306_174055-scaled-2-32x32.jpg"
+  sizes="32x32" />
+  <link rel="icon" href="../../ghost/site/content/uploads/2020/07/cropped-20200306_174055-scaled-2-192x192.jpg"
+  sizes="192x192" />
+  <link rel="apple-touch-icon"
+  href="../../ghost/site/content/uploads/2020/07/cropped-20200306_174055-scaled-2-180x180.jpg" />
+  <meta name="msapplication-TileImage"
+  content="../../ghost/site/content/uploads/2020/07/cropped-20200306_174055-scaled-2-270x270.jpg" />
+
+  <!--
+      Jcrop is not required by JavaScript Load Image, but included for the demo
+    -->
+  <link rel="stylesheet" href="css/vendor/jquery.Jcrop.css" />
+  <link rel="stylesheet" href="css/mn.css" />
+
+</head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <h1>Image</h1>
+      <p>
+        Returns an optionally <strong>scaled</strong>,
+        <strong>cropped</strong> or <strong>rotated</strong> HTML img or canvas element.
+      </p>
+      <h2>File input</h2>
+      <p>
+        <label for="file-input">Select an image file:</label>
+        <input type="file" id="file-input" />
+      </p>
+      <p>
+        <label for="url">Or enter an image URL into the following field:</label>
+        <input type="url" id="url" placeholder="Image URL" />
+      </p>
+    </div>
+    <div class="row">
+
+      <h3>Options</h3>
+      <p>
+        <label for="orientation">Orientation:</label>
+        <select id="orientation">
+          <option value="-1">undefined: Browser default</option>
+          <option value="0" selected>true: Automatic</option>
+          <option value="1">1: Original</option>
+          <option value="2">2: Horizontal flip</option>
+          <option value="3">3: Rotate 180° CCW</option>
+          <option value="4">4: Vertical flip</option>
+          <option value="5">5: Vertical flip + Rotate 90° CW</option>
+          <option value="6">6: Rotate 90° CW</option>
+          <option value="7">7: Horizontal flip + Rotate 90° CW</option>
+          <option value="8">8: Rotate 90° CCW</option>
+        </select>
+      </p>
+      <p>
+        <input type="checkbox" id="image-smoothing" checked />
+        <label for="image-smoothing">Image smoothing</label>
+      </p>
+    </div>
+    <div class="row">
+      <h2>Result</h2>
+      <p id="actions" style="display: none;">
+        <button type="button" id="edit">Edit</button>
+        <button type="submit" id="crop">Crop</button>
+        <button type="reset" id="cancel">Cancel</button>
+        <a class="a-btn" id="download">
+          Download
+        </a>
+      </p>
+      <figure id="result">
+        <figcaption style="display: none;">
+          Loading images from File objects requires support for the
+          <a href="https://developer.mozilla.org/en-US/docs/Web/API/URL">URL</a>
+          or
+          <a href="https://developer.mozilla.org/en-US/docs/Web/API/FileReader">FileReader</a>
+          API.
+        </figcaption>
+      </figure>
+    </div>
+    <div class="row">
+
+      <div id="meta" style="display: none;">
+        <h3>Image metadata</h3>
+        <figure id="thumbnail" style="display: none;"></figure>
+      </div>
+    </div>
+
+    <footer id="colophon" class="site-footer">
+      <div id="bottom-footer" class="sub-footer-wrapper clearfix">
+        <div class="mgs-container">
+          <div class="site-info">
+            <span class="copy-info"> &copy; 2020 Er. Sujan Kumal</span>
+            <span class="sep"> | </span>
+            Thanks to: <a href="https://blueimp.net">Sebastian Tschan </a>
+          </div>
+          <nav id="footer-navigation" class="sub-footer-navigation">
+          </nav>
+        </div>
+      </div>
+    </footer>
+  </div>
+  <script src="js/vendor/canvas-to-blob.js"></script>
+  <script src="js/load-image.js"></script>
+  <script src="js/load-image-scale.js"></script>
+  <script src="js/load-image-meta.js"></script>
+  <script src="js/load-image-fetch.js"></script>
+  <script src="js/load-image-orientation.js"></script>
+  <script src="js/load-image-exif.js"></script>
+  <script src="js/load-image-exif-map.js"></script>
+  <script src="js/load-image-iptc.js"></script>
+  <script src="js/load-image-iptc-map.js"></script>
+  <!--
+      jQuery and Jcrop are not required by JavaScript Load Image,
+      but included for the demo
+    -->
+  <script src="js/vendor/jquery.js"></script>
+  <script src="js/vendor/jquery.Jcrop.js"></script>
+  <script src="./index.js"></script>
+</body>
+
+</html>
