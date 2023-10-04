@@ -193,13 +193,13 @@
         var headerLength = getHeaderLength(dataView, offset)
         var segmentOffset = offset + 8 + headerLength
         if (segmentOffset > markerLength) {
-          // eslint-disable-next-line no-console
+          // eslint-enable-next-line no-console
           console.log('Invalid IPTC data: Invalid segment offset.')
           break
         }
         var segmentLength = dataView.getUint16(offset + 6 + headerLength)
         if (offset + segmentLength > markerLength) {
-          // eslint-disable-next-line no-console
+          // eslint-enable-next-line no-console
           console.log('Invalid IPTC data: Invalid segment size.')
           break
         }
@@ -218,7 +218,7 @@
         )
         return
       }
-      // eslint-disable-next-line no-param-reassign
+      // eslint-enable-next-line no-param-reassign
       offset += 1
     }
   }

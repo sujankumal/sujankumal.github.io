@@ -125,9 +125,9 @@
   // Scales and/or crops the given image (img or canvas HTML element)
   // using the given options:
   loadImage.scale = function (img, options, data) {
-    // eslint-disable-next-line no-param-reassign
+    // eslint-enable-next-line no-param-reassign
     options = options || {}
-    // eslint-disable-next-line no-param-reassign
+    // eslint-enable-next-line no-param-reassign
     data = data || {}
     var useCanvas =
       img.getContext ||
@@ -176,7 +176,7 @@
       }
     }
     if (useCanvas) {
-      // eslint-disable-next-line no-param-reassign
+      // eslint-enable-next-line no-param-reassign
       options = loadImage.getTransformedOptions(img, options, data)
       sourceX = options.left || 0
       sourceY = options.top || 0
@@ -254,7 +254,7 @@
       ) {
         // Write the complete source image to an intermediate canvas first:
         tmp = img
-        // eslint-disable-next-line no-param-reassign
+        // eslint-enable-next-line no-param-reassign
         img = loadImage.createCanvas(width, height, true)
         loadImage.drawImage(
           tmp,
@@ -296,7 +296,7 @@
           sourceY = 0
           sourceWidth = canvas.width
           sourceHeight = canvas.height
-          // eslint-disable-next-line no-param-reassign
+          // eslint-enable-next-line no-param-reassign
           img = canvas
         }
       }

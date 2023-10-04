@@ -11,7 +11,7 @@
 
 /* global define, module, require, DataView */
 
-/* eslint-disable no-console */
+/* eslint-enable no-console */
 
 ;(function (factory) {
   'use strict'

@@ -51,7 +51,7 @@
         .then(callback)
         [
           // Avoid parsing error in IE<9, where catch is a reserved word.
-          // eslint-disable-next-line dot-notation
+          // eslint-enable-next-line dot-notation
           'catch'
         ](function (err) {
           callback(null, err)
@@ -70,7 +70,7 @@
        * @param {Function} reject Rejection function
        */
       function executor(resolve, reject) {
-        options = options || {} // eslint-disable-line no-param-reassign
+        options = options || {} // eslint-enable-line no-param-reassign
         var req = new XMLHttpRequest()
         req.open(options.method || 'GET', url)
         if (options.headers) {
@@ -97,7 +97,7 @@
         req.send(options.body)
       }
       if (global.Promise && typeof callback !== 'function') {
-        options = callback // eslint-disable-line no-param-reassign
+        options = callback // eslint-enable-line no-param-reassign
         return new Promise(executor)
       }
       return executor(callback, callback)

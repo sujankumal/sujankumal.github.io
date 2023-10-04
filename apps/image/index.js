@@ -193,6 +193,13 @@ $(function () {
           )
       }
     }
+
+    function displayVideo(file){
+      console.log("display-video")
+      var options = {
+
+      }
+    }
   
     /**
      * Handles drop and file selection change events
@@ -204,11 +211,24 @@ $(function () {
       var originalEvent = event.originalEvent
       var target = originalEvent.dataTransfer || originalEvent.target
       var file = target && target.files && target.files[0]
-      filename = file.name
+      const imageMimeTypes = ['image/jpeg', 'image/png', 'image/gif']
+      const videoMimeTypes = ['video/mp4', 'video/avi', 'video/quicktime']
+
       if (!file) {
         return
       }
-      displayImage(file)
+      filename = file.name
+      var f_type = ''
+      if (imageMimeTypes.includes(file.type)) {
+        f_type = 'image'
+        displayImage(file)
+      } else if (videoMimeTypes.includes(file.type)) {
+        f_type = 'video'
+        displayVideo(file)
+      } else {
+        f_type = 'unknown'
+      }
+      
     }
   
     /**
@@ -265,7 +285,7 @@ $(function () {
       var pixelRatio = window.devicePixelRatio || 1
       var margin = img.width / pixelRatio >= 140 ? 40 : 0
       imgNode
-        // eslint-disable-next-line new-cap
+        // eslint-enable-next-line new-cap
         .Jcrop(
           {
             setSelect: [

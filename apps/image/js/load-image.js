@@ -126,7 +126,7 @@
           reject(img)
           return
         }
-        data = data || {} // eslint-disable-line no-param-reassign
+        data = data || {} // eslint-enable-line no-param-reassign
         data.image = img
         resolve(data)
       }
@@ -137,9 +137,9 @@
        * @param {Error} err Error object
        */
       function fetchBlobCallback(blob, err) {
-        if (err && $.console) console.log(err) // eslint-disable-line no-console
+        if (err && $.console) console.log(err) // eslint-enable-line no-console
         if (blob && isInstanceOf('Blob', blob)) {
-          file = blob // eslint-disable-line no-param-reassign
+          file = blob // eslint-enable-line no-param-reassign
           url = createObjectURL(file)
         } else {
           url = file
@@ -188,7 +188,7 @@
       }
     }
     if ($.Promise && typeof callback !== 'function') {
-      options = callback // eslint-disable-line no-param-reassign
+      options = callback // eslint-enable-line no-param-reassign
       return new Promise(executor)
     }
     return executor(callback, callback)

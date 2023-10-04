@@ -42,7 +42,7 @@
     (global.ArrayBuffer && ArrayBuffer.prototype.slice) ||
     function (begin, end) {
       // Polyfill for IE10, which does not support ArrayBuffer.slice
-      // eslint-disable-next-line no-param-reassign
+      // eslint-enable-next-line no-param-reassign
       end = end || this.byteLength - begin
       var arr1 = new Uint8Array(this, begin, end)
       var arr2 = new Uint8Array(end)
@@ -133,7 +133,7 @@
                 // but not the marker bytes, so we add 2:
                 markerLength = dataView.getUint16(offset + 2) + 2
                 if (offset + markerLength > dataView.byteLength) {
-                  // eslint-disable-next-line no-console
+                  // eslint-enable-next-line no-console
                   console.log('Invalid JPEG metadata: Invalid segment size.')
                   break
                 }
@@ -173,13 +173,13 @@
         resolve(data)
       }
     }
-    options = options || {} // eslint-disable-line no-param-reassign
+    options = options || {} // eslint-enable-line no-param-reassign
     if (global.Promise && typeof callback !== 'function') {
-      options = callback || {} // eslint-disable-line no-param-reassign
-      data = options // eslint-disable-line no-param-reassign
+      options = callback || {} // eslint-enable-line no-param-reassign
+      data = options // eslint-enable-line no-param-reassign
       return new Promise(executor)
     }
-    data = data || {} // eslint-disable-line no-param-reassign
+    data = data || {} // eslint-enable-line no-param-reassign
     return executor(callback, callback)
   }
 
@@ -225,14 +225,14 @@
 
   loadImage.transform = function (img, options, callback, file, data) {
     if (loadImage.requiresMetaData(options)) {
-      data = data || {} // eslint-disable-line no-param-reassign
+      data = data || {} // eslint-enable-line no-param-reassign
       parseMetaData(
         file,
         function (result) {
           if (result !== data) {
-            // eslint-disable-next-line no-console
+            // eslint-enable-next-line no-console
             if (global.console) console.log(result)
-            result = data // eslint-disable-line no-param-reassign
+            result = data // eslint-enable-line no-param-reassign
           }
           originalTransform.call(
             loadImage,
