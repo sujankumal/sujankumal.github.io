@@ -1119,9 +1119,7 @@
         setBgOpacity: setBgOpacity,
         done: done
       };
-    }());
-    
-    //}}}
+    }());//}}}
     // Tracker Module {{{
     var Tracker = (function () {
       var onMove = function () {},
