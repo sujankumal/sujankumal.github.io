@@ -397,6 +397,7 @@ img.emoji {
     font-weight: bold;
     display: flex;
     align-items: center;
+    text-shadow: 2px 2px 4px #008979;
 }
 
 .adminButtons a:hover {

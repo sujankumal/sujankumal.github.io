@@ -9,7 +9,7 @@
  * https://opensource.org/licenses/MIT
  */
 
-/* global loadImage, $ */
+/* global loadImage, $ , videojs*/
 
 $(function () {
     'use strict'
@@ -193,12 +193,25 @@ $(function () {
           )
       }
     }
-
+    
     function displayVideo(file){
-      console.log("display-video")
-      var options = {
-
-      }
+      var URL = window.URL || window.webkitURL
+      var fileURL = URL.createObjectURL(file)
+      resultNode
+          .children()
+          .replaceWith(
+            $( 
+              '<video id="my-video" class="video-js vjs-fluid" controls preload="auto" width="640" height="360" '+
+              ' data-setup="{}">'+
+              '<source src="'+ fileURL+'" type="'+file.type+'" />'+
+              '<p class="vjs-no-js">'+
+              'To view this video please enable JavaScript, and consider upgrading to a web browser that'+
+              '<a href="https://videojs.com/html5-video-support/" target="_blank" >supports HTML5 video</a>'+
+              '</p>'+
+              '</video>'
+            )
+            )
+      videojs('my-video')
     }
   
     /**
@@ -211,9 +224,11 @@ $(function () {
       var originalEvent = event.originalEvent
       var target = originalEvent.dataTransfer || originalEvent.target
       var file = target && target.files && target.files[0]
-      const imageMimeTypes = ['image/jpeg', 'image/png', 'image/gif']
-      const videoMimeTypes = ['video/mp4', 'video/avi', 'video/quicktime']
-
+      const imageMimeTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/bmp', 'image/tiff', 
+        'image/webp', 'image/svg+xml']
+      const videoMimeTypes = ['video/mp4', 'video/avi', 'video/webm', 'video/ogg',
+        'video/3gpp', 'video/quicktime', 'video/x-flv', 'video/x-matroska',
+        'video/x-ms-wmv', 'video/x-msvideo']
       if (!file) {
         return
       }
