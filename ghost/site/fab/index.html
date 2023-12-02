@@ -1,9 +1,108 @@
-<div class="adminActions">
-	<input type="checkbox" name="adminToggle" class="adminToggle" />
-	<a class="adminButton" href="#!"><i class="fa fa-th-large"></i></a>
-	<div class="adminButtons">
-		<a href="https://sujankumal.com.np/2048/" title="2048"><i class="fa fa-random"></i><span class="label">2048</span></a>
-		<a href="/apps/image/" title="Image"><i class="fa fa-picture-o"></i><span class="label">Image</span></a>
-		<a href="/apps/" title="Apps"><i class="fa fa-cube"></i><span class="label">Apps</span></a>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<style>
+		.site-message{
+			display: flex;
+			justify-content: center;
+			text-decoration-color: aliceblue;
+			width: 100%;
+			background: transparent;
+			position: fixed;
+			top: 10px;
+			z-index: 1000;
+			animation: hide_message 6s linear forwards;
+			&:hover{
+				animation-play-state: paused;
+			}
+		}
+		@keyframes hide_message {
+			70%{
+				opacity: 1;
+			}
+			80%{
+				opacity: 0.5;
+			}
+			90%{
+				opacity: 0.1;
+			}
+			to{
+				opacity: 0;
+				visibility: hidden;
+			}
+		}
+		.site-message > h6{
+			background-color: green;
+			padding: 10px 40px;
+			margin: 10px;
+			border-radius: 30px;
+			color: white;  
+			  border: 2px solid #363636;
+		}
+		.site-message a{
+			color: rgb(255, 143, 143);
+		}
+		.site-message a:hover{
+			color:rgb(238, 242, 150);
+			text-decoration: underline;
+		}
+		#showcountdown{
+			counter-reset: count 6;
+			padding-left: 16px;
+			&::before {
+				animation: CountDown 5s linear forwards; 
+				content: counter(count);
+				color: aliceblue;
+			}
+		}
+		@keyframes CountDown{
+			0% {
+				color: rgb(187, 255, 0);
+			}
+			20% {
+				counter-increment: count -1;
+				content: counter(count);
+				color: green;
+			}
+			40% {
+				counter-increment: count -2;
+				content: counter(count);
+				color: blue;
+			}
+			60% {
+				counter-increment: count -3;
+				content: counter(count);
+				color: greenyellow;
+			}
+			80% {
+				counter-increment: count -4;
+				content: counter(count);
+				color: rebeccapurple;
+			}
+			100% {
+				counter-increment: count -5;
+				content: counter(count);
+				color: aqua;
+			}
+		}
+	</style>
+</head>
+<body>
+	<div class="adminActions">
+		<input type="checkbox" name="adminToggle" class="adminToggle" />
+		<a class="adminButton" href="#!"><i class="fa fa-th-large"></i></a>
+		<div class="adminButtons">
+			<a href="https://sujankumal.com.np/2048/" title="2048"><i class="fa fa-random"></i><span class="label">2048</span></a>
+			<a href="/apps/image/" title="Image"><i class="fa fa-picture-o"></i><span class="label">Image</span></a>
+			<a href="/apps/" title="Apps"><i class="fa fa-cube"></i><span class="label">Apps</span></a>
+		</div>
 	</div>
-</div>
+	<div class="site-message" id="site-message">
+		<h6>
+			We are migrating to <a href="https://vercel.sujankumal.com.np/">new site.</a><span class="container" id="showcountdown"></span>
+		</h6>
+	</div>
+</body>
+</html>
